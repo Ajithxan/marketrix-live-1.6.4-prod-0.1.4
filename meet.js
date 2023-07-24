@@ -387,6 +387,7 @@ const meetingObj = {
   },
 
   initializeMeeting: () => {
+    if(meetingVariables.token)  {
     window.VideoSDK.config(meetingVariables.token);
 
     meetingObj.meeting = window.VideoSDK.initMeeting({
@@ -496,6 +497,7 @@ const meetingObj = {
       let aElement = document.getElementById(`a-${participant.id}`);
       aElement.remove(aElement);
     });
+  }
   },
 
   createLocalParticipant: () => {
