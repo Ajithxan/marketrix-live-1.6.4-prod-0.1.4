@@ -1,4 +1,4 @@
-const meetVersion = "2.8";
+const meetVersion = "2.9";
 const CDNlink = `https://cdn.jsdelivr.net/gh/Ajithxan/marketrix-live-${meetVersion}/`; //'http://localhost/creativehub/marketrix-live-1.7/'
 console.log(CDNlink);
 const startingTime = new Date().getTime();
