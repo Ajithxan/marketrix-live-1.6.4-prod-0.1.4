@@ -1,4 +1,4 @@
-const meetVersion = "2.9";
+const meetVersion = "1.3.0";
 const CDNlink = `https://cdn.jsdelivr.net/gh/Ajithxan/marketrix-live-${meetVersion}/`; //'http://localhost/creativehub/marketrix-live-1.7/'
 console.log(CDNlink);
 const startingTime = new Date().getTime();
@@ -380,7 +380,9 @@ const meetingObj = {
         contorlsDiv = document.getElementById("controls");
         marketrixButton?.classList.add("mtx-hidden");
 
-        meetingObj.joinMeeting();
+        setTimeout(() => {
+          meetingObj.joinMeeting();
+        }, 1000);
       });
   },
 
