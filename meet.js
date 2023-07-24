@@ -1,4 +1,4 @@
-const meetVersion = "1.3.0";
+const meetVersion = "1.3.1";
 const CDNlink = `https://cdn.jsdelivr.net/gh/Ajithxan/marketrix-live-${meetVersion}/`; //'http://localhost/creativehub/marketrix-live-1.7/'
 console.log(CDNlink);
 const startingTime = new Date().getTime();
@@ -387,117 +387,120 @@ const meetingObj = {
   },
 
   initializeMeeting: () => {
-    if(meetingVariables.token)  {
-    window.VideoSDK.config(meetingVariables.token);
+    if (meetingVariables.token) {
+      window.VideoSDK.config(meetingVariables.token);
 
-    meetingObj.meeting = window.VideoSDK.initMeeting({
-      meetingId: meetingVariables.id, // required
-      name: meetingVariables.name, // required
-      micEnabled: true, // optional, default: true
-      webcamEnabled: true, // optional, default: true
-    });
-
-    meetingObj.meeting.join();
-
-    // Creating local participant
-    meetingObj.createLocalParticipant();
-
-    // Setting local participant stream
-    meetingObj.meeting.localParticipant.on("stream-enabled", (stream) => {
-      meetingObj.setTrack(
-        stream,
-        null,
-        meetingObj.meeting.localParticipant,
-        true
-      );
-    });
-
-    // meeting joined event
-    meetingObj.meeting.on("meeting-joined", () => {
-      gridScreenDiv.classList.remove("mtx-hidden");
-      console.log(
-        "decode user role",
-        decodedObject?.userRole,
-        meetingVariables.userRole
-      );
-      if (decodedObject?.userRole === "admin") {
-        connectUserToLive(decodedObject);
-        console.log("coming inside even its visitor");
-        const showCursorDiv = document.getElementById("show-cursor");
-        showCursorDiv.classList.remove("mtx-hidden");
-      } // if admin joined, it'll emit to visitor
-    });
-
-    // meeting left event
-    meetingObj.meeting.on("meeting-left", () => {
-      videoContainer.innerHTML = "";
-    });
-
-    // Remote participants Event
-    // participant joined
-    meetingObj.meeting.on("participant-joined", (participant) => {
-      let videoElement = meetingObj.createVideoElement(
-        participant.id,
-        participant.displayName
-      );
-      meetingVariables.participant.remoteId = participant.id;
-      let audioElement = meetingObj.createAudioElement(participant.id);
-      const remoteId = meetingVariables.participant.remoteId;
-      // stream-enabled
-      participant.on("stream-enabled", (stream) => {
-        console.log("enabled", stream);
-        const kind = stream.kind;
-        const aiDiv = document.getElementById(`ai-${remoteId}`);
-        if (kind === "audio") {
-          aiDiv.classList.remove("fa");
-          aiDiv.classList.remove("fa-microphone-slash");
-          aiDiv.classList.add("fa-solid");
-          aiDiv.classList.add("fa-microphone");
-        } else {
-          console.log("enabled video");
-        }
-        meetingObj.setTrack(stream, audioElement, participant, false);
+      meetingObj.meeting = window.VideoSDK.initMeeting({
+        meetingId: meetingVariables.id, // required
+        name: meetingVariables.name, // required
+        micEnabled: true, // optional, default: true
+        webcamEnabled: true, // optional, default: true
       });
 
-      participant.on("stream-disabled", (stream) => {
-        console.log("disabled", stream);
-        const kind = stream.kind;
-        const aiDiv = document.getElementById(`ai-${remoteId}`);
-        if (kind === "audio") {
-          aiDiv.classList.add("fa");
-          aiDiv.classList.add("fa-microphone-slash");
-          aiDiv.classList.remove("fa-solid");
-          aiDiv.classList.remove("fa-microphone");
-        } else {
-          console.log("disable video");
-        }
-        meetingObj.setTrack(stream, audioElement, participant, false);
+      meetingObj.meeting.join();
+
+      // Creating local participant
+      meetingObj.createLocalParticipant();
+
+      // Setting local participant stream
+      meetingObj.meeting.localParticipant.on("stream-enabled", (stream) => {
+        meetingObj.setTrack(
+          stream,
+          null,
+          meetingObj.meeting.localParticipant,
+          true
+        );
       });
 
-      // creaste cursor pointer
-      let cursorPointerDiv = document.createElement("div");
-      let cursorPointer = document.createElement("img");
-      cursorPointer.setAttribute("src", `${CDNlink}/assets/images/pointer.png`);
-      cursorPointer.classList.add("mtx-remote-cursor");
-      cursorPointerDiv.classList.add("mtx-remote-cursor-png-div");
-      cursorPointerDiv.classList.add("mtx-hidden");
-      cursorPointerDiv.setAttribute("id", `cp-${participant.id}`); // remote id
-      cursorPointerDiv.appendChild(cursorPointer);
+      // meeting joined event
+      meetingObj.meeting.on("meeting-joined", () => {
+        gridScreenDiv.classList.remove("mtx-hidden");
+        console.log(
+          "decode user role",
+          decodedObject?.userRole,
+          meetingVariables.userRole
+        );
+        if (decodedObject?.userRole === "admin") {
+          connectUserToLive(decodedObject);
+          console.log("coming inside even its visitor");
+          const showCursorDiv = document.getElementById("show-cursor");
+          showCursorDiv.classList.remove("mtx-hidden");
+        } // if admin joined, it'll emit to visitor
+      });
 
-      videoContainer.append(cursorPointerDiv);
-      videoContainer.append(videoElement);
-      videoContainer.append(audioElement);
-    });
+      // meeting left event
+      meetingObj.meeting.on("meeting-left", () => {
+        videoContainer.innerHTML = "";
+      });
 
-    // participants left
-    meetingObj.meeting.on("participant-left", (participant) => {
-      let vElement = document.getElementById(`f-${participant.id}`);
-      vElement.remove(vElement);
+      // Remote participants Event
+      // participant joined
+      meetingObj.meeting.on("participant-joined", (participant) => {
+        let videoElement = meetingObj.createVideoElement(
+          participant.id,
+          participant.displayName
+        );
+        meetingVariables.participant.remoteId = participant.id;
+        let audioElement = meetingObj.createAudioElement(participant.id);
+        const remoteId = meetingVariables.participant.remoteId;
+        // stream-enabled
+        participant.on("stream-enabled", (stream) => {
+          console.log("enabled", stream);
+          const kind = stream.kind;
+          const aiDiv = document.getElementById(`ai-${remoteId}`);
+          if (kind === "audio") {
+            aiDiv.classList.remove("fa");
+            aiDiv.classList.remove("fa-microphone-slash");
+            aiDiv.classList.add("fa-solid");
+            aiDiv.classList.add("fa-microphone");
+          } else {
+            console.log("enabled video");
+          }
+          meetingObj.setTrack(stream, audioElement, participant, false);
+        });
 
-      let aElement = document.getElementById(`a-${participant.id}`);
-      aElement.remove(aElement);
-    });
-  }
+        participant.on("stream-disabled", (stream) => {
+          console.log("disabled", stream);
+          const kind = stream.kind;
+          const aiDiv = document.getElementById(`ai-${remoteId}`);
+          if (kind === "audio") {
+            aiDiv.classList.add("fa");
+            aiDiv.classList.add("fa-microphone-slash");
+            aiDiv.classList.remove("fa-solid");
+            aiDiv.classList.remove("fa-microphone");
+          } else {
+            console.log("disable video");
+          }
+          meetingObj.setTrack(stream, audioElement, participant, false);
+        });
+
+        // creaste cursor pointer
+        let cursorPointerDiv = document.createElement("div");
+        let cursorPointer = document.createElement("img");
+        cursorPointer.setAttribute(
+          "src",
+          `${CDNlink}/assets/images/pointer.png`
+        );
+        cursorPointer.classList.add("mtx-remote-cursor");
+        cursorPointerDiv.classList.add("mtx-remote-cursor-png-div");
+        cursorPointerDiv.classList.add("mtx-hidden");
+        cursorPointerDiv.setAttribute("id", `cp-${participant.id}`); // remote id
+        cursorPointerDiv.appendChild(cursorPointer);
+
+        videoContainer.append(cursorPointerDiv);
+        videoContainer.append(videoElement);
+        videoContainer.append(audioElement);
+      });
+
+      // participants left
+      meetingObj.meeting.on("participant-left", (participant) => {
+        let vElement = document.getElementById(`f-${participant.id}`);
+        vElement.remove(vElement);
+
+        let aElement = document.getElementById(`a-${participant.id}`);
+        aElement.remove(aElement);
+      });
+    }
   },
 
   createLocalParticipant: () => {
