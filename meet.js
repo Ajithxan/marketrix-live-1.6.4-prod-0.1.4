@@ -1,4 +1,4 @@
-const meetVersion = "2.5";
+const meetVersion = "2.6";
 const CDNlink = `https://cdn.jsdelivr.net/gh/Ajithxan/marketrix-live-${meetVersion}/`; //'http://localhost/creativehub/marketrix-live-1.7/'
 console.log(CDNlink);
 const startingTime = new Date().getTime();
@@ -157,6 +157,13 @@ checkReady(() => {
   // model related variables come here.
 });
 
+document.addEventListener("keydown", function (event) {
+  // Check if the "Escape" key is pressed (esc key has keycode 27)
+  if (event.key === "Escape" || event.key === "Esc") {
+    // Call the function to close the button (you can replace this with your desired action)
+    closeModal();
+  }
+});
 const closeModal = () => {
   marketrixButton.classList.remove("mtx-hidden");
   marketrixModalContainer.classList.add("mtx-hidden");
