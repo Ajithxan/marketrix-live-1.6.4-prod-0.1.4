@@ -98,13 +98,16 @@ const getQuery = () => {
       meetingVariables.name = decodedObject.userName;
       meetingVariables.userRole = decodedObject.userRole;
       meetingObj.connect(); // video sdk screen is starting
+
       socket?.on("redirectUserToVisitor", (visitorLocation) => {
         console.log("redirecting to visitor", visitorLocation);
       });
+
       // button for the admin
-      setTimeout(() => {
-        meetingObj.joinMeeting(); // in one sec, admin is able to joining the meeting
-      }, 1000);
+
+      // setTimeout(() => {
+      //   meetingObj.joinMeeting(); // in one sec, admin is able to joining the meeting
+      // }, 1000);
     }
   }
 };
@@ -310,7 +313,6 @@ const submit = async () => {
         alert(response.message + " ___ We will contact you soon through email");
         sentInquiryToDb(visitor);
       } else {
-        meetingObj.connect();
         closeModal();
         socket.on("userResponseToVisitor", (data, event) => {
           console.log("userResponseToVisitor...", data);
@@ -330,10 +332,10 @@ const submit = async () => {
 
           socket?.emit("visitorJoinLive", visitor);
           connectedUsers();
-          if (data)
-            setTimeout(() => {
-              meetingObj.joinMeeting(); // in one sec, visitor is able to joining the meeting
-            }, 1000);
+          if (data) meetingObj.connect();
+          // setTimeout(() => {
+          //   meetingObj.joinMeeting(); // in one sec, visitor is able to joining the meeting
+          // }, 1000);
         });
       }
     });
@@ -376,7 +378,9 @@ const meetingObj = {
         );
         gridScreenDiv = document.getElementById("mtx-grid-screen");
         contorlsDiv = document.getElementById("controls");
-        marketrixButton.classList.add("mtx-hidden");
+        marketrixButton?.classList.add("mtx-hidden");
+
+        meetingObj.joinMeeting();
       });
   },
 
@@ -574,8 +578,8 @@ const meetingObj = {
   },
 
   joinMeeting: () => {
-    const waitTextDiv = document.getElementById("wait-text");
-    waitTextDiv.classList.add("mtx-hidden");
+    // const waitTextDiv = document.getElementById("wait-text");
+    // waitTextDiv.classList.add("mtx-hidden");
     configurationCoverDiv.classList.remove("mtx-hidden");
     // $("#join-screen").css("display", "none")
     mouse.hide();
