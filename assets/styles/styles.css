@@ -3,25 +3,27 @@
     position: fixed;
     padding: 10px 16px 10px 8px;
     border-radius: 100px;
-    background: rgba(255, 255, 255, 0.95);
-    box-shadow: 0 4px 6px -2px rgba(16, 24, 40, 0.03), 0 12px 32px -4px rgba(16, 24, 40, 0.04);
-    bottom: 2rem;
+    border: 0.33px solid var(--gray-300, #D0D5DD);
+    background: rgba(255, 255, 255, 0.84);
+    box-shadow: 0px 4px 6px -2px rgba(16, 24, 40, 0.03), 0px 12px 32px -4px rgba(16, 24, 40, 0.04);    bottom: 2rem;
     left: 1rem;
+    bottom: 2.7rem;
     cursor: pointer;
-    z-index: 999;
+    z-index: 1;
 }
 .mtx-avatar {
     position: relative;
 }
 .mtx-avatar img {
     border-radius: 100%;
+    width: 50px;
 }
 
 .mtx-avatar-online {
     position: absolute;
     background-color: #12b76a;
-    width: 12px;
-    height: 12px;
+    width: 15px;
+    height: 15px;
     z-index: 999;
     right: 0;
     border-radius: 100%;
@@ -40,7 +42,7 @@
     display: flex;
     align-items: center;
     color: #344054;
-    font-size: 16px;
+    font-size: 18px;
     font-style: normal;
     font-weight: 600;
     line-height: 24px;
@@ -136,7 +138,7 @@
     position: fixed;
     bottom: 2rem;
     left: 1rem;
-    padding: 1rem;
+    /* padding: 1rem; */
     width: 375px;
     border-radius: 15px;
     z-index: 9999;
@@ -146,7 +148,7 @@
 .mtx-form-position {
     position: relative;
     bottom: 0;
-    height: 100vh;
+    /* height: 100vh; */
     z-index: 9999;
 }
 
@@ -180,6 +182,7 @@
 .mtxx-modal-content {
     /* width: 320px; */
     border: none;
+    padding: 0.5rem 1rem 0.5rem 1rem;
     position: relative;
     display: -ms-flexbox;
     display: flex;
@@ -235,9 +238,11 @@
     right: 0;
     width: 100%;
     height: 100%;
-    background: #ffffff;
+    background-color: rgba(0,0,0,0.5); /* Black background with opacity */
+  z-index: 999;
+    /* background: #c03a3a;
     backdrop-filter: blur(3px);
-    z-index: 1;
+    z-index: 1; */
 }
 .mtx-main-footer {
     display: flex;
@@ -258,6 +263,7 @@
     font-size: 2rem;
     text-align: end;
     color: #2a487a;
+    cursor: pointer;
 }
 .mtx-footer-actions {
     display: flex;
@@ -280,8 +286,9 @@
     background: #f2f4f7;
     border: 1px solid #d0d5dd;
     transition: all 0.5s ease-out;
-}
+} 
 .mtx-btn-connect {
+    width: 60%;
     background: #ffffff;
     border-radius: 100px;
     display: flex;
