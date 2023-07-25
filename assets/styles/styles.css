@@ -315,7 +315,7 @@
 .mtx-configuration-position {
     position: fixed;
     width: 100%;
-    bottom: 0;
+    /* bottom: 0; */
     /* left: 13px; */
 }
 
@@ -385,7 +385,12 @@
     text-transform: capitalize;
 }
 #mtx-video-container {
-    margin-bottom: 20vh;
+    /* margin-bottom: 20vh; */
+    /* background-color: #8a2be2; */
+    height: 80vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .btn-submit {
     outline: none;
@@ -441,12 +446,13 @@
     border-radius: 100px;
 }
 .mtx-btn-leave {
+    width: 60%;
     background: #ffffff;
     font-size: 18px;
     font-style: normal;
     font-weight: 500;
     line-height: 28px;
-    width: 160px;
+    /* width: 160px; */
     border-radius: 100px;
     display: flex;
     justify-content: center;
