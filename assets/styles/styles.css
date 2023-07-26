@@ -491,7 +491,7 @@
 }
 
 .mtx-hidden {
-    display: none;
+    display: none !important;
 }
 /*-----------------------end of configurationstyles----------------------------------*/
 /*-----------------------start of modalstyles----------------------------------*/

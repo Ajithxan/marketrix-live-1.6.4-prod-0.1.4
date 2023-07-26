@@ -1,60 +1,36 @@
 <html>
-  <head>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/gh/Ajithxan/marketrix-live-1.3.4/assets/styles/styles.css"
-    />
-    <title>configurtion page</title>
-  </head>
-  <body>
-    <div id="mtx-configuration-cover" class="mtx-hidden"></div>
-    <div id="mtx-configuration" class="mtx-configuration-position">
-      <div id="mtx-grid-screen" class="mtx-container-fluid mtx-hidden">
-        <div id="mtx-video-container" class=""></div>
-        <span id="wait-text" class="mtx-pleasewait-message">Please wait...</span>
-        <div class="mtx-config-controls">
-          <div class="mtx-config-footer" id="controls">
-            <div class="mtx-config-main-controls">
-              <div
-                type="button"
-                class="mtx-btn-background"
-                onclick="meetingObj.toggle.mic()"
-              >
-                <i id="mic-icon" class="fa-solid fa-microphone"></i>
-              </div>
-              <div
-                type="button"
-                class="mtx-btn-background"
-                onclick="meetingObj.toggle.webCam()"
-              >
-                <i id="webcam-icon" class="fas fa-video"></i>
-              </div>
-              <div
-                id="leaveBtn"
-                class="mtx-btn-leave"
-                onclick="meetingObj.leaveMeeting()"
-              >
-                <span>
-                  <i class="fa fa-phone" aria-hidden="true"></i>End call</span
-                >
-              </div>
-            </div>
-          </div>
+    <head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Ajithxan/marketrix-live-1.3.5/assets/styles/styles.css"/>
+        <title>configurtion page</title>
+    </head>
+    <body>
+        <div id="mtx-configuration-cover" class="mtx-hidden"></div>
+        <div id="mtx-configuration" class="mtx-configuration-position">
+            <div id="mtx-grid-screen" class="mtx-container-fluid mtx-hidden">
+                <div id="mtx-video-container" class="mtx-hidden"></div>
+                <div class="mtx-config-controls">
+                    <div class="mtx-config-footer mtx-hidden" id="controls">
+                        <div class="mtx-config-main-controls">
+                            <div type="button" class="mtx-btn-background" onclick="meetingObj.toggle.mic()">
+                                <i id="mic-icon" class="fa-solid fa-microphone"></i>
+                            </div>
+                            <div type="button" class="mtx-btn-background" onclick="meetingObj.toggle.webCam()">
+                                <i id="webcam-icon" class="fas fa-video"></i>
+                            </div>
+                            <div id="leaveBtn" class="mtx-btn-leave" onclick="meetingObj.leaveMeeting()">
+                                <span>
+                                    <i class="fa fa-phone" aria-hidden="true"></i>End call</span>
+                            </div>
+                        </div>
+                    </div>
 
-          <div>
-            <div
-              id="show-cursor"
-              class="config-btn-circle mtx-hidden"
-              onclick="mouse.show()"
-            >
-              <img
-                class="mtx-cursor-img"
-                src="https://cdn.jsdelivr.net/gh/Ajithxan/marketrix-live-1.3.4/assets/images/cursor.png"
-              />
+                    <div>
+                        <div id="show-cursor" class="config-btn-circle mtx-hidden" onclick="mouse.show()">
+                            <img class="mtx-cursor-img" src="https://cdn.jsdelivr.net/gh/Ajithxan/marketrix-live-1.3.5/assets/images/cursor.png"/>
+                        </div>
+                    </div>
+                </div>
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </body>
+    </body>
 </html>
