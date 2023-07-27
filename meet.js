@@ -1,5 +1,5 @@
-const meetVersion = "1.3.6";
-const CDNlink = `https://cdn.jsdelivr.net/gh/Ajithxan/marketrix-live-${meetVersion}/` // 'http://localhost/creativehub/marketrix-live-1.3.4/'
+const meetVersion = "1.3.7";
+const CDNlink =  `https://cdn.jsdelivr.net/gh/Ajithxan/marketrix-live-${meetVersion}/` //'http://localhost/creativehub/marketrix-live-1.3.4/'
 console.log(CDNlink)
 const startingTime = new Date().getTime();
 const socketClientScript = document.createElement("script");
@@ -113,16 +113,15 @@ const getQuery = () => {
   }
 };
 
-// geo location
-const successCallback = (position) => {
+let geoLocation;
+let ipAddress;
+
+// get geo location
+navigator.geolocation.getCurrentPosition((position) => {
   geoLocation = position.coords
-};
-
-const errorCallback = (error) => {
+}, (error) => {
   console.log(error);
-};
-
-navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+});
 
 // get ip address
 fetch('https://api.ipify.org/?format=json')
@@ -283,48 +282,45 @@ const submit = async () => {
   };
 
   console.log("visitor", visitor); //return
-  // if (
-  //   visitor.name === "" ||
-  //   visitor.email === "" ||
-  //   visitor.message === "" ||
-  //   visitor.inquiry_type === ""
-  // ) {
-  //   alert("Please fill the required fields");
-  // } else {
-  socket.emit("VisitorRequestMeet", visitor, (response) => {
-    console.log("visitorRequestMeet", response); // ok
+  if (
+    visitor.name === "" ||
+    visitor.email === "" ||
+    visitor.message === "" ||
+    visitor.inquiry_type === ""
+  ) {
+    alert("Please fill the required fields");
+  } else {
+    socket.emit("VisitorRequestMeet", visitor, (response) => {
+      console.log("visitorRequestMeet", response); // ok
 
-    if (!response.status) {
-      alert(response.message + " ___ We will contact you soon through email");
-      sentInquiryToDb(visitor);
-    } else {
-      closeModal();
-      socket.on("userResponseToVisitor", (data, event) => {
-        console.log("userResponseToVisitor...", data);
-        if (meetingVariables.id) return; // already joined the meeting
-        meetingVariables.id = data.meetingId;
-        meetingVariables.token = data.token;
-        meetingVariables.name = data.liveMeet.name;
+      if (!response.status) {
+        alert(response.message + " ___ We will contact you soon through email");
+        sentInquiryToDb(visitor);
+      } else {
+        closeModal();
+        socket.on("userResponseToVisitor", (data, event) => {
+          console.log("userResponseToVisitor...", data);
+          if (meetingVariables.id) return; // already joined the meeting
+          meetingVariables.id = data.meetingId;
+          meetingVariables.token = data.token;
+          meetingVariables.name = data.liveMeet.name;
 
-        let visitor = {
-          userName: data.liveMeet.name,
-          domain: data.liveMeet?.website_domain,
-          meetingId: data.liveMeet?.video_sdk?.meeting?.meetingId,
-          token: data.liveMeet?.video_sdk?.token,
-          visitorSocketId: data.liveMeet?.visitor_socket_id,
-          visitorPosition: {},
-        };
+          let visitor = {
+            userName: data.liveMeet.name,
+            domain: data.liveMeet?.website_domain,
+            meetingId: data.liveMeet?.video_sdk?.meeting?.meetingId,
+            token: data.liveMeet?.video_sdk?.token,
+            visitorSocketId: data.liveMeet?.visitor_socket_id,
+            visitorPosition: {},
+          };
 
-        socket?.emit("visitorJoinLive", visitor);
-        connectedUsers();
-        if (data) meetingObj.connect();
-        // setTimeout(() => {
-        //   meetingObj.joinMeeting(); // in one sec, visitor is able to joining the meeting
-        // }, 1000);
-      });
-    }
-  });
-  // }
+          socket?.emit("visitorJoinLive", visitor);
+          connectedUsers();
+          if (data) meetingObj.connect();
+        });
+      }
+    });
+  }
 };
 
 const getCursorLocation = async (event) => {
