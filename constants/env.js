@@ -1,3 +1,4 @@
+console.log("env.js is established")
 const API_URL = "https://server.marketrix.co"; // "https://api.marketrix.io/";
 
 const END_POINTS = {

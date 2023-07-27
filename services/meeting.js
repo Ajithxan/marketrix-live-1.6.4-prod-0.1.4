@@ -4,6 +4,7 @@ const meetingObj = {
     isMicOn: false,
     isWebCamOn: false,
     connect() {
+        setToStore('MEETING_VARIABLES', JSON.stringify(meetingVariables)) // store meeting variables
         const videoConfigDiv = document.createElement("div");
         videoConfigDiv.setAttribute("id", "video-sdk-config");
         document.body.prepend(videoConfigDiv);
@@ -84,8 +85,10 @@ const meetingObj = {
                     participant.displayName
                 );
                 meetingVariables.participant.remoteId = participant.id;
+                setToStore('MEETING_VARIABLES', JSON.stringify(meetingVariables)) // store meeting variables
                 let audioElement = meetingObj.createAudioElement(participant.id);
                 const remoteId = meetingVariables.participant.remoteId;
+
                 // stream-enabled
                 participant.on("stream-enabled", (stream) => {
                     console.log("enabled", stream);
@@ -155,6 +158,7 @@ const meetingObj = {
         );
         meetingVariables.participant.localId =
             meetingObj.meeting.localParticipant.id;
+        setToStore('MEETING_VARIABLES', JSON.stringify(meetingVariables)) // store meeting variables
         let localAudioElement = meetingObj.createAudioElement(
             meetingObj.meeting.localParticipant.id
         );
@@ -247,6 +251,7 @@ const meetingObj = {
         meetingVariables.participant.localId = "";
         meetingVariables.participant.remoteId = "";
         meetingVariables.id = "";
+        removeFromStore("MEETING_VARIABLES")
     },
 
     toggle: {

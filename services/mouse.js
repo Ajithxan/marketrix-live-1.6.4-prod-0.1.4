@@ -12,6 +12,7 @@ const mouse = {
         document.onmousemove = mouse.handleMouse;
     },
     show: () => {
+        console.log("mouse show is called", mouse.showCursor)
         if (mouse.showCursor && meetingVariables.userRole !== "visitor") {
             mouse.hide();
             return;
