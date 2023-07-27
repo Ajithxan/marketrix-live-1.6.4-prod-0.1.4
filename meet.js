@@ -1,6 +1,6 @@
-const meetVersion = "1.3.5";
-const CDNlink =  `https://cdn.jsdelivr.net/gh/Ajithxan/marketrix-live-${meetVersion}/` //'http://localhost/creativehub/marketrix-live-1.3.4/' 
-console.log(CDNlink);
+const meetVersion = "1.3.6";
+const CDNlink = `https://cdn.jsdelivr.net/gh/Ajithxan/marketrix-live-${meetVersion}/` // 'http://localhost/creativehub/marketrix-live-1.3.4/'
+console.log(CDNlink)
 const startingTime = new Date().getTime();
 const socketClientScript = document.createElement("script");
 const watchScript = document.createElement("script");
@@ -66,6 +66,21 @@ document.head.prepend(fontAwesomeLink);
 const appId = document.currentScript.getAttribute("marketrix-id");
 const apiKey = document.currentScript.getAttribute("marketrix-key");
 
+const setCDNLink = () => {
+  const links = document.getElementsByTagName('link')
+  const imgs = document.getElementsByTagName('img')
+  // change all href
+  for (const link of links) {
+    const linkAttr = link.getAttribute("href").replace("{{CDN_LINK}}", CDNlink)
+    link.setAttribute("href", linkAttr)
+  }
+  // change all src
+  for (const img of imgs) {
+    const imgSrc = img.getAttribute("src").replace("{{CDN_LINK}}", CDNlink)
+    img.setAttribute("src", imgSrc)
+  }
+}
+
 const checkReady = (callback) => {
   setTimeout(() => {
     callback();
@@ -98,6 +113,23 @@ const getQuery = () => {
   }
 };
 
+// geo location
+const successCallback = (position) => {
+  geoLocation = position.coords
+};
+
+const errorCallback = (error) => {
+  console.log(error);
+};
+
+navigator.geolocation.getCurrentPosition(successCallback, errorCallback);
+
+// get ip address
+fetch('https://api.ipify.org/?format=json')
+  .then(response => response.json())
+  .then((data) => {
+    ipAddress = data.ip
+  });
 
 const start = () => {
   const buttonDiv = document.createElement("div");
@@ -118,7 +150,7 @@ const start = () => {
     .then((html) => {
       buttonDiv.innerHTML = html;
       marketrixButton = document.getElementById("marketrix-button");
-      console.log(marketrixButton);
+      setCDNLink()
     });
 
   fetch(`${CDNlink}pages/contact-form.html`)
@@ -131,6 +163,7 @@ const start = () => {
         "marketrix-modal-container"
       );
       overlay = document.querySelector(".mtx-overlay");
+      setCDNLink()
     });
 
   getQuery();
@@ -244,6 +277,9 @@ const submit = async () => {
     visitorDevice: visitorDevice,
     visitorPosition: visitorPosition,
     locationHref: window.location.href,
+    ipAddress,
+    geoLocation,
+    country: 'Sri lanka'
   };
 
   console.log("visitor", visitor); //return

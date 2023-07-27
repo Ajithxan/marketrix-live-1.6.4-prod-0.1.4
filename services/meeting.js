@@ -21,7 +21,7 @@ const meetingObj = {
                 gridScreenDiv = document.getElementById("mtx-grid-screen");
                 contorlsDiv = document.getElementById("controls");
                 marketrixButton?.classList.add("mtx-hidden");
-
+                setCDNLink()
                 setTimeout(() => {
                     meetingObj.joinMeeting();
                 }, 1000);
