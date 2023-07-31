@@ -4,7 +4,7 @@
     padding: 8px;
     border-radius: 100px;
     border: 0.33px solid var(--gray-300, #D0D5DD);
-    background: rgba(255, 255, 255, 0.84);
+    background: #fff;
     box-shadow: 0px 4px 6px -2px rgba(16, 24, 40, 0.03), 0px 12px 32px -4px rgba(16, 24, 40, 0.04);    bottom: 2rem;
     left: 1.5rem;
     bottom: 1.5rem;
@@ -21,7 +21,7 @@
 
 .mtx-avatar-online {
     position: absolute;
-    background-color: #12b76a;
+    background-color: #12B76A;
     width: 15px;
     height: 15px;
     z-index: 999;
@@ -36,6 +36,7 @@
     display: flex;
     justify-content: space-between;
     gap: 0.5rem;
+    align-items: center;
 }
 
 .mtx-button-txt {
@@ -47,7 +48,15 @@
     font-weight: 600;
     line-height: 24px;
 }
+.mobile{
+    display: block;
+}
 
+/* @media (min-width: 300px) and (max-width: 768px) {
+    .mtx-mainButton{
+        display: none;
+    }
+} */
 /*-----------------------end of contact-button styles----------------------------------*/
 
 /*-----------------------start of contact-form styles----------------------------------*/
@@ -71,12 +80,12 @@
 .mtx-cursor-one {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: start;
     animation-name: mtx-cursor-one;
     animation-duration: 3s;
     animation-iteration-count: infinite;
     animation-timing-function: ease-in-out;
-    margin-left: 30px;
+    /* margin-left: 30px; */
     margin-top: 5px;
 }
 @keyframes mtx-cursor-one {
@@ -415,9 +424,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    position: fixed;
-    right: 28px;
-    bottom: 129px;
+    /* position: fixed; */
+    /* right: 28px; */
+    /* bottom: 129px; */
 }
 
 .config-btn-circle:hover {
@@ -444,7 +453,7 @@
     /* background-color: #8a2be2; */
 }
 .mtx-config-footer {
-    width: 23%;
+    width:308px;
     border: 1px solid var(--gray-100, #f2f4f7);
     background: #f2f4f7;
     padding: 8px 12px;
@@ -631,3 +640,12 @@
     margin-left: 0.5rem!important;
 }
 /*-----------------------end of grid styles-----------------------------------*/
+
+
+
+@media (min-width:200px) and (max-width:767px){
+    .mtx-mainButton{
+        display: none !important;
+        background-color: #33b113;
+    }
+}
