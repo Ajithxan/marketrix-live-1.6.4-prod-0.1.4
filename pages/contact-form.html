@@ -24,6 +24,12 @@
                   <img src="{{CDN_LINK}}assets/images/cursor-three.png" />
                 </div>
               </div>
+
+                <div class="mtx-close-btn-footer">
+                  <div type="button" onclick="closeModal()">
+                    <span aria-hidden="true" class="footer-close-btn"><img src="{{CDN_LINK}}assets/images/minusIcon.svg"></span>
+                  </div>
+                </div>
             </div>
             
             <div>
@@ -68,7 +74,7 @@
                   <textarea
                     rows="2"
                     type="text"
-                    class="mtx-form-control shadow-lg"
+                    class="mtx-form-control-text"
                     name="message"
                     placeholder="Tell us how we can help you?"
                   ></textarea>
@@ -79,23 +85,27 @@
             <div class="mtx-main-footer">
               <div class="mtx-connect-footer">
                 <div class="mtx-footer-actions">
-                  <div type="button" class="mtx-btn-background " onclick="closeModal()">
-                    <i class="fa-solid fa-microphone"></i>
+                  <div class="mtx-footer-main-btn">
+                      <div type="button" class="mtx-btn-background " onclick="closeModal()">
+                        <i class="fa-solid fa-microphone"></i>
+                      </div>
+                      <div type="button" class="mtx-btn-background" onclick="closeModal()">
+                        <i class="fas fa-video"></i>
+                      </div>
                   </div>
-                  <div type="button" class="mtx-btn-background" onclick="closeModal()">
-                    <i class="fas fa-video"></i>
-                  </div>
-                  <div type="button" class="  mtx-btn-connect " onclick="submit()" >
-                    <span>
-                      <i class="fa fa-headphones" aria-hidden="true"></i>Connect</span>
+                  <div class="mtx-footer-connect-btn">
+                      <div type="button" class="mtx-btn-connect" onclick="submit()" >
+                        <span>
+                          <i class="fa fa-headphones" aria-hidden="true"></i>Connect with agent</span>
+                      </div>
                   </div>
                 </div>
               </div>
-              <div class="mtx-close-btn-footer">
+              <!-- <div class="mtx-close-btn-footer">
                 <div type="button" onclick="closeModal()">
                   <span aria-hidden="true" class="footer-close-btn"><img src="{{CDN_LINK}}assets/images/closeicon.svg"></span>
                 </div>
-              </div>
+              </div> -->
             </div>
           </div>
 
