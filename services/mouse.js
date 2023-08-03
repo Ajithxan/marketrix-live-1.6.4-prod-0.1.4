@@ -126,10 +126,13 @@ const mouse = {
             fLocalDiv.style.top = y + "px";
         }
 
+        console.log("cursor id", cursorId)
+
         socket.emit(
             "cursorPosition",
             mouse.cursor,
             meetingVariables.id,
+            cursorId,
             (response) => {
                 // console.log("cursorPosition-send", response); // ok
             }

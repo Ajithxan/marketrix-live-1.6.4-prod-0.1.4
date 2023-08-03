@@ -1,7 +1,10 @@
 console.log("store.js is established")
-// keys
+// ---keys---
 // CURRENT_URL
 // MEETING_VARIABLES
+// DECODED_OBJECT
+// SOCKET_IO
+// CURSOR_ID
 
 const setToStore = (key, value) => {
     localStorage.setItem(key, value)

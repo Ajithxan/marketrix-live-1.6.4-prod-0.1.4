@@ -60,10 +60,10 @@ const meetingObj = {
                 gridScreenDiv.classList.remove("mtx-hidden");
                 console.log(
                     "decode user role",
-                    decodedObject?.userRole,
                     meetingVariables.userRole
                 );
-                if (decodedObject?.userRole === "admin") {
+                if (meetingVariables.userRole === "admin") {
+                    console.log("decode object =>",decodedObject)
                     connectUserToLive(decodedObject);
                     console.log("coming inside even its visitor");
                     const showCursorDiv = document.getElementById("show-cursor");

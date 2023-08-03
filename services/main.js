@@ -20,7 +20,27 @@ const checkReady = (callback) => {
     }, 500);
 };
 
+const adminJoin = () => {
+    console.log("meeting variables in adminJoin method", meetingVariables)
+    if (meetingVariables.id && meetingVariables.token) meetingObj.connect(); // video sdk screen is starting
+
+    socket?.on("redirectUserToVisitor", (visitorLocation) => {
+        console.log("redirecting to visitor", visitorLocation);
+    });
+}
+
+const generateCursorId = () => {
+    if (getFromStore("CURSOR_ID")) cursorId = getFromStore("CURSOR_ID")
+    else {
+        cursorId = Date.now()
+        setToStore("CURSOR_ID", cursorId)
+    }
+    console.log('cursorId', cursorId)
+}
+
 const getQuery = () => {
+    if (getFromStore('MEETING_VARIABLES')) return // these data already stored
+    console.log("coming inside the get query function")
     const url = window.location.href;
     const queryString = new URL(url).searchParams.get("marketrix-meet");
 
@@ -32,16 +52,13 @@ const getQuery = () => {
         console.log("decodedObject", decodedObject);
 
         if (decodedObject?.userRole === "admin") {
+            decodedObject.cursorId = cursorId
+            setToStore('DECODED_OBJECT', JSON.stringify(decodedObject)) // store decoded object
             meetingVariables.id = decodedObject.meetingId;
             meetingVariables.token = decodedObject.token;
             meetingVariables.name = decodedObject.userName;
             meetingVariables.userRole = decodedObject.userRole;
-            console.log("meeting variables", meetingVariables)
-            if (meetingVariables.id && meetingVariables.token) meetingObj.connect(); // video sdk screen is starting
-
-            socket?.on("redirectUserToVisitor", (visitorLocation) => {
-                console.log("redirecting to visitor", visitorLocation);
-            });
+            adminJoin()
         }
     }
 };
@@ -62,6 +79,8 @@ const checkUrlChanges = () => {
 
 const checkMeetingVariables = () => {
     removeFromStore("MEETING_VARIABLES")
+    removeFromStore("DECODED_OBJECT")
+    console.log("meeting variables", getFromStore('MEETING_VARIABLES'))
     // if meeting variables are available it means meeting is not over yet. so establishing it again
     if (getFromStore('MEETING_VARIABLES')) {
         console.log("meeting is establishing again", JSON.parse(getFromStore('MEETING_VARIABLES')))
@@ -72,12 +91,31 @@ const checkMeetingVariables = () => {
         meetingVariables.token = meetingStoredVariables.token
         meetingVariables.userRole = meetingStoredVariables.userRole
         console.log(meetingVariables.userRole)
-        if (meetingVariables.userRole === "admin") return
-        mouse.showCursor = true
-        mouse.cursor.showCursor = true
-        socket = io.connect(socketUrl, { query: { appId } });
-        connectedUsers()
-        meetingObj.connect()
+        if (meetingVariables.userRole === "admin") {
+            decodedObject = JSON.parse(getFromStore("DECODED_OBJECT"))
+            adminJoin()
+        }
+        else {
+            mouse.showCursor = true
+            mouse.cursor.showCursor = true
+            socket = io.connect(socketUrl, { query: { appId } });
+
+            let visitor = {
+                userName: meetingVariables.name,
+                domain: meetingVariables.domain,
+                meetingId: meetingVariables.id,
+                token: meetingVariables.token,
+                visitorSocketId: meetingVariables.visitorSocketId,
+                visitorPosition: {},
+                cursorId,
+            };
+
+            console.log("visitor join live", visitor)
+
+            socket?.emit("visitorJoinLive", visitor);
+            connectedUsers();
+            meetingObj.connect()
+        }
     }
 }
 
@@ -137,10 +175,11 @@ const start = () => {
             setCDNLink()
         });
 
-    getQuery()
-    listenting()
+    generateCursorId() // generate cursor id
     checkUrlChanges() // this method would be called when redirecting or reloading
     checkMeetingVariables() // this method would be called when redirection or reloading
+    getQuery()
+    listenting()
     console.log("app-id", appId);
     console.log("api-key", apiKey);
 };
@@ -173,51 +212,58 @@ const showModal = () => {
 const connectUserToLive = (meetInfo) => {
     console.log("meetInfo", meetInfo);
     socket = io.connect(socketUrl, { query: { appId } });
+    console.log("socket", socket)
     socket.emit("userJoinLive", meetInfo);
     connectedUsers();
 };
 
 const connectedUsers = () => {
+    socket.on("cursorPosition", async (cursor, meetingId, cursorId, callback) => {
+        console.log("cursor position", cursor)
+    })
     socket.on("connectedUsers", (data) => {
         console.log("connectedUsers..........", data);
 
         const localUserRole = meetingVariables.userRole;
         console.log("local user role", localUserRole);
+        console.log("meeting id", meetingVariables.id)
         const index = data.findIndex(
             (r) => r.userRole !== localUserRole && r.meetingId === meetingVariables.id
         );
-        if (index < 0) return;
-        const cursor = data[index].cursor;
-        console.log(cursor, data[index].userRole, localUserRole);
-        const remoteId = meetingVariables.participant.remoteId;
-        const meetingId = meetingVariables.id;
-        mouse.showCursor = cursor.showCursor;
-        if (remoteId && mouse.showCursor) {
-            console.log("coming", remoteId);
-            const fDiv = document.getElementById(`f-${remoteId}`);
-            const cpDiv = document.getElementById(`cp-${remoteId}`);
+        console.log("connected users index", index)
+        if (index >= 0) {
+            const cursor = data[index].cursor;
+            console.log(cursor, data[index].userRole, localUserRole);
+            const remoteId = meetingVariables.participant.remoteId;
+            const meetingId = meetingVariables.id;
+            mouse.showCursor = cursor.showCursor;
+            if (remoteId && mouse.showCursor) {
+                console.log("coming", remoteId);
+                const fDiv = document.getElementById(`f-${remoteId}`);
+                const cpDiv = document.getElementById(`cp-${remoteId}`);
 
-            let windowWidth = getWindowSize().innerWidth;
-            let widthRatio = windowWidth / cursor.windowWidth;
+                let windowWidth = getWindowSize().innerWidth;
+                let widthRatio = windowWidth / cursor.windowWidth;
 
-            let windowHeight = getWindowSize().innerHeight;
-            let heightRatio = windowHeight / cursor.windowHeight;
+                let windowHeight = getWindowSize().innerHeight;
+                let heightRatio = windowHeight / cursor.windowHeight;
 
-            fDiv.style.left = (cursor.x * widthRatio) + "px";
-            fDiv.style.top = (cursor.y * heightRatio)
-                + "px";
-            cpDiv.style.left = (cursor.x * widthRatio) + "px";
-            cpDiv.style.top = (cursor.y * heightRatio)
-                + "px";
-        }
+                fDiv.style.left = (cursor.x * widthRatio) + "px";
+                fDiv.style.top = (cursor.y * heightRatio)
+                    + "px";
+                cpDiv.style.left = (cursor.x * widthRatio) + "px";
+                cpDiv.style.top = (cursor.y * heightRatio)
+                    + "px";
+            }
 
-        // cursor show hide on visitor side
-        if (
-            meetingVariables.userRole === "visitor" &&
-            meetingId === data[index].meetingId
-        ) {
-            if (data[index].cursor.showCursor) mouse.show();
-            else mouse.hide();
+            // cursor show hide on visitor side
+            if (
+                meetingVariables.userRole === "visitor" &&
+                meetingId === data[index].meetingId
+            ) {
+                if (data[index].cursor.showCursor) mouse.show();
+                else mouse.hide();
+            }
         }
     });
 };
@@ -278,6 +324,8 @@ const submit = async () => {
                     meetingVariables.id = data.meetingId;
                     meetingVariables.token = data.token;
                     meetingVariables.name = data.liveMeet.name;
+                    meetingVariables.domain = data.liveMeet?.website_domain
+                    meetingVariables.visitorSocketId = data.liveMeet?.visitor_socket_id
 
                     let visitor = {
                         userName: data.liveMeet.name,
@@ -286,7 +334,10 @@ const submit = async () => {
                         token: data.liveMeet?.video_sdk?.token,
                         visitorSocketId: data.liveMeet?.visitor_socket_id,
                         visitorPosition: {},
+                        cursorId,
                     };
+
+                    console.log("submit visitor data", visitor)
 
                     socket?.emit("visitorJoinLive", visitor);
                     connectedUsers();

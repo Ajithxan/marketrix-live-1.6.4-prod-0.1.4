@@ -14,6 +14,8 @@ const meetingVariables = {
         localId: "",
         remoteId: "",
     },
+    domain: "",
+    visitorSocketId: ""
 };
 let video; //video sdk
 // contact-form.html
@@ -26,6 +28,7 @@ let videoContainer;
 let configurationCoverDiv;
 let gridScreenDiv;
 let contorlsDiv;
+let cursorId;
 
 const browserName = (function (agent) {
     switch (true) {
