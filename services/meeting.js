@@ -240,6 +240,7 @@ const meetingObj = {
     },
 
     leaveMeeting: () => {
+        localStorage.clear()
         meetingObj.meeting?.leave();
         const videoSdkConfigDiv = document.getElementById("video-sdk-config");
         const waitTextDiv = document.getElementById("wait-text");
@@ -251,7 +252,6 @@ const meetingObj = {
         meetingVariables.participant.localId = "";
         meetingVariables.participant.remoteId = "";
         meetingVariables.id = "";
-        removeFromStore("MEETING_VARIABLES")
     },
 
     toggle: {

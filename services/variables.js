@@ -29,6 +29,7 @@ let configurationCoverDiv;
 let gridScreenDiv;
 let contorlsDiv;
 let cursorId;
+let isUrlChanged = false
 
 const browserName = (function (agent) {
     switch (true) {

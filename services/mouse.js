@@ -12,7 +12,7 @@ const mouse = {
         document.onmousemove = mouse.handleMouse;
     },
     show: () => {
-        console.log("mouse show is called", mouse.showCursor)
+        // console.log("mouse show is called", mouse.showCursor)
         if (mouse.showCursor && meetingVariables.userRole !== "visitor") {
             mouse.hide();
             return;
@@ -28,8 +28,8 @@ const mouse = {
         showCursorDiv.classList.add("mtx-mode");
         if (meetingVariables.userRole === "admin") mouse.showCursor = true; // admin make the cursor movement on both side
         mouse.startMove();
-        console.log("local participant id", meetingVariables.participant.localId);
-        console.log("remote participant id", meetingVariables.participant.remoteId);
+        // console.log("local participant id", meetingVariables.participant.localId);
+        // console.log("remote participant id", meetingVariables.participant.remoteId);
 
         remoteCursorDiv.classList.remove("mtx-hidden"); // show
 
@@ -68,8 +68,8 @@ const mouse = {
         contorlsDiv.classList.remove("mtx-hidden");
         showCursorDiv.classList.remove("mtx-mode");
 
-        console.log("local id", localId);
-        console.log("remote id", remoteId);
+        // console.log("local id", localId);
+        // console.log("remote id", remoteId);
 
         if (localId) {
             const fLocalDiv = document.getElementById(`f-${localId}`);
@@ -126,7 +126,7 @@ const mouse = {
             fLocalDiv.style.top = y + "px";
         }
 
-        console.log("cursor id", cursorId)
+        // console.log("cursor id", cursorId)
 
         socket.emit(
             "cursorPosition",

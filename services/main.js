@@ -70,7 +70,7 @@ const checkUrlChanges = () => {
     if (getFromStore('CURRENT_URL')) {
         if (currentUrl !== getFromStore('CURRENT_URL')) {
             // emit url changes
-            console.log("establishing the meeting again")
+            isUrlChanged = true
         }
     }
 
@@ -78,8 +78,8 @@ const checkUrlChanges = () => {
 }
 
 const checkMeetingVariables = () => {
-    removeFromStore("MEETING_VARIABLES")
-    removeFromStore("DECODED_OBJECT")
+    // removeFromStore("MEETING_VARIABLES")
+    // removeFromStore("DECODED_OBJECT")
     console.log("meeting variables", getFromStore('MEETING_VARIABLES'))
     // if meeting variables are available it means meeting is not over yet. so establishing it again
     if (getFromStore('MEETING_VARIABLES')) {
@@ -99,6 +99,12 @@ const checkMeetingVariables = () => {
             mouse.showCursor = true
             mouse.cursor.showCursor = true
             socket = io.connect(socketUrl, { query: { appId } });
+
+            socket.on("changeUrl", (data) => {
+                const changedUrl = data.url
+                setToStore("CURRENT_URL", changedUrl)
+                window.location.href = changedUrl
+            })
 
             let visitor = {
                 userName: meetingVariables.name,
@@ -213,32 +219,36 @@ const connectUserToLive = (meetInfo) => {
     console.log("meetInfo", meetInfo);
     socket = io.connect(socketUrl, { query: { appId } });
     console.log("socket", socket)
+    if (isUrlChanged) console.log("emit url changes"); socket.emit("urlChange", {
+        meetingId: meetingVariables.id,
+        url: currentUrl
+    });
     socket.emit("userJoinLive", meetInfo);
     connectedUsers();
 };
 
 const connectedUsers = () => {
-    socket.on("cursorPosition", async (cursor, meetingId, cursorId, callback) => {
-        console.log("cursor position", cursor)
-    })
+    // socket.on("cursorPosition", async (cursor, meetingId, cursorId, callback) => {
+    //     console.log("cursor position", cursor)
+    // })
     socket.on("connectedUsers", (data) => {
-        console.log("connectedUsers..........", data);
+        // console.log("connectedUsers..........", data);
 
         const localUserRole = meetingVariables.userRole;
-        console.log("local user role", localUserRole);
-        console.log("meeting id", meetingVariables.id)
+        // console.log("local user role", localUserRole);
+        // console.log("meeting id", meetingVariables.id)
         const index = data.findIndex(
             (r) => r.userRole !== localUserRole && r.meetingId === meetingVariables.id
         );
-        console.log("connected users index", index)
+        // console.log("connected users index", index)
         if (index >= 0) {
             const cursor = data[index].cursor;
-            console.log(cursor, data[index].userRole, localUserRole);
+            // console.log(cursor, data[index].userRole, localUserRole);
             const remoteId = meetingVariables.participant.remoteId;
             const meetingId = meetingVariables.id;
             mouse.showCursor = cursor.showCursor;
             if (remoteId && mouse.showCursor) {
-                console.log("coming", remoteId);
+                // console.log("coming", remoteId);
                 const fDiv = document.getElementById(`f-${remoteId}`);
                 const cpDiv = document.getElementById(`cp-${remoteId}`);
 

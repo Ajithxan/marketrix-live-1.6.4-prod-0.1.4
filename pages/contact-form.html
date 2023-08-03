@@ -1,112 +1,112 @@
 <html>
 
-<head>
-  <link rel="stylesheet" href="{{CDN_LINK}}assets/styles/styles.css" />
-  <title>contact-button</title>
-</head>
+    <head>
+        <link rel="stylesheet" href="{{CDN_LINK}}assets/styles/styles.css"/>
+        <title>contact-button</title>
+    </head>
 
-<body>
-  <div class="mtx-form-position mtx-hidden" id="marketrix-modal-container">
-    <section class="mtx-modal">
-      <div class="marketrix-flex">
-        <div class="mtxx-modal-content">
+    <body>
+        <div class="mtx-form-position mtx-hidden" id="marketrix-modal-container">
+            <section class="mtx-modal">
+                <div class="marketrix-flex">
+                    <div class="mtxx-modal-content">
 
-          <div class="">
-            <div class="mtx-main-cursor-header">
-              <div class="mtx-cursor-header">
-                <div class="mtx-cursor-one">
-                  <img src="{{CDN_LINK}}assets/images/cursor-one.png" />
+                        <div class="">
+                            <div class="mtx-main-cursor-header">
+                                <div class="mtx-cursor-header">
+                                    <div class="mtx-cursor-one">
+                                        <img src="{{CDN_LINK}}assets/images/cursor-one.png"/>
+                                    </div>
+                                    <div class="mtx-cursor-two">
+                                        <img src="{{CDN_LINK}}assets/images/cursor-two.png"/>
+                                    </div>
+                                    <div class="mtx-cursor-three">
+                                        <img src="{{CDN_LINK}}assets/images/cursor-three.png"/>
+                                    </div>
+                                </div>
+
+                                <div class="mtx-close-btn-footer">
+                                    <div type="button" onclick="closeModal()">
+                                        <span aria-hidden="true" class="footer-close-btn"><img src="{{CDN_LINK}}assets/images/minusIcon.svg"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>
+                                <form id="mtx-form">
+                                    <div>
+                                        <div class="mtx-form-group">
+                                            <div class="title-one">We are here to support you!</div>
+                                            <p class="title-two">Inorder to get started, we'd like to collect some
+                                                                      information.
+                                            </p>
+                                        </p]>
+                                    </div>
+                                </div>
+
+                                <div class="mtx-form-group">
+                                    <input name="name" type="text" class="mtx-form-control " placeholder="Your name"/>
+                                </div>
+                                <div class="mtx-form-group">
+                                    <input name="email" type="text" class="mtx-form-control " placeholder="Work email"/>
+                                </div>
+                                <div class="mtx-form-group">
+                                    <select name="inquiry_type" class="mtx-form-control" aria-label="Default select example">
+                                        <option class="mtx-option-selected" selected="selected">
+                                            Select a Inquiry Type
+                                        </option>
+                                        <option value="Account">Account</option>
+                                        <option value="Billing">Billing</option>
+                                        <option value="Refunds">Refunds</option>
+                                        <option value="General">General</option>
+                                        <option value="Feature">Feature</option>
+                                        <option value="Integration">Integration</option>
+                                        <option value="Product">Product</option>
+                                        <option value="Technical">Technical</option>
+                                    </select>
+                                </div>
+
+                                <!-- <div class="mtx-form-group">
+                                                  <input name="phone_no" type="text" class="mtx-form-control " placeholder="Phone Number" />
+                                                </div> -->
+
+                                <div class="mtx-form-group">
+                                    <textarea rows="2" type="text" class="mtx-form-control-text" name="message" placeholder="Tell us how we can help you?"></textarea>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="mtx-main-footer">
+                            <div class="mtx-connect-footer">
+                                <div class="mtx-footer-actions">
+                                    <div class="mtx-footer-main-btn">
+                                        <div type="button" class="mtx-btn-background " onclick="closeModal()">
+                                            <i class="fa-solid fa-microphone"></i>
+                                        </div>
+                                        <div type="button" class="mtx-btn-background" onclick="closeModal()">
+                                            <i class="fas fa-video"></i>
+                                        </div>
+                                    </div>
+                                    <div class="mtx-footer-connect-btn">
+                                        <div type="button" class="mtx-btn-connect" onclick="submit()">
+                                            <span>
+                                                <i class="fa fa-headphones" aria-hidden="true"></i>Connect with agent</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- <div class="mtx-close-btn-footer">
+                                            <div type="button" onclick="closeModal()">
+                                              <span aria-hidden="true" class="footer-close-btn"><img src="{{CDN_LINK}}assets/images/closeicon.svg"></span>
+                                            </div>
+                                          </div> -->
+                        </div>
+                    </div>
+
                 </div>
-                <div class="mtx-cursor-two">
-                  <img src="{{CDN_LINK}}assets/images/cursor-two.png" />
-                </div>
-                <div class="mtx-cursor-three">
-                  <img src="{{CDN_LINK}}assets/images/cursor-three.png" />
-                </div>
-              </div>
             </div>
-            
-            <div>
-              <form id="mtx-form">
-                <div>
-                  <div class="mtx-form-group">
-                    <div class="title-one">We are here to support you!</div>
-                    <p class="title-two">Inorder to get started, we'd like to collect some
-                      information.
-                    </p>
-                    </p]>
-                  </div>
-                </div>
-
-                <div class="mtx-form-group">
-                  <input name="name" type="text" class="mtx-form-control " placeholder="Your name" />
-                </div>
-                <div class="mtx-form-group">
-                  <input name="email" type="text" class="mtx-form-control " placeholder="Work email" />
-                </div>   
-                <div class="mtx-form-group">
-                  <select name="inquiry_type" class="mtx-form-control" aria-label="Default select example">
-                    <option class="mtx-option-selected" selected="selected">
-                      Select a Inquiry Type
-                    </option>
-                    <option value="Account">Account</option>
-                    <option value="Billing">Billing</option>
-                    <option value="Refunds">Refunds</option>
-                    <option value="General">General</option>
-                    <option value="Feature">Feature</option>
-                    <option value="Integration">Integration</option>
-                    <option value="Product">Product</option>
-                    <option value="Technical">Technical</option>
-                  </select>
-                </div>
-
-                  <!-- <div class="mtx-form-group">
-                  <input name="phone_no" type="text" class="mtx-form-control " placeholder="Phone Number" />
-                </div> -->
-
-                <div class="mtx-form-group">
-                  <textarea
-                    rows="2"
-                    type="text"
-                    class="mtx-form-control shadow-lg"
-                    name="message"
-                    placeholder="Tell us how we can help you?"
-                  ></textarea>
-                </div>
-              </form>
-            </div>
-
-            <div class="mtx-main-footer">
-              <div class="mtx-connect-footer">
-                <div class="mtx-footer-actions">
-                  <div type="button" class="mtx-btn-background " onclick="closeModal()">
-                    <i class="fa-solid fa-microphone"></i>
-                  </div>
-                  <div type="button" class="mtx-btn-background" onclick="closeModal()">
-                    <i class="fas fa-video"></i>
-                  </div>
-                  <div type="button" class="  mtx-btn-connect " onclick="submit()" >
-                    <span>
-                      <i class="fa fa-headphones" aria-hidden="true"></i>Connect</span>
-                  </div>
-                </div>
-              </div>
-              <div class="mtx-close-btn-footer">
-                <div type="button" onclick="closeModal()">
-                  <span aria-hidden="true">&times;</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
         </div>
-      </div>
-  </div>
-  <div class="mtx-overlay mtx-hidden"></div>
-</body>
-
-</html>
-</div>
-</body>
+        <div class="mtx-overlay mtx-hidden"></div>
+    </body>
 
 </html>
