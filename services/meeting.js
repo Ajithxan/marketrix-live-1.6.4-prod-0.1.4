@@ -241,7 +241,9 @@ const meetingObj = {
 
     leaveMeeting: () => {
         localStorage.clear()
-        meetingObj.meeting?.leave();
+        meetingObj.meeting?.leave()
+        if(meetingVariables.userRole === "visitor") window.location.reload()
+        else window.close()
         const videoSdkConfigDiv = document.getElementById("video-sdk-config");
         const waitTextDiv = document.getElementById("wait-text");
         gridScreenDiv.classList.add("mtx-hidden"); // hide

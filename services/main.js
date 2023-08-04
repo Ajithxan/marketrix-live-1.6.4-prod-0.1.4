@@ -337,6 +337,12 @@ const submit = async () => {
                     meetingVariables.domain = data.liveMeet?.website_domain
                     meetingVariables.visitorSocketId = data.liveMeet?.visitor_socket_id
 
+                    socket.on("changeUrl", (data) => {
+                        const changedUrl = data.url
+                        setToStore("CURRENT_URL", changedUrl)
+                        window.location.href = changedUrl
+                    })
+                    
                     let visitor = {
                         userName: data.liveMeet.name,
                         domain: data.liveMeet?.website_domain,
