@@ -334,8 +334,8 @@ const sentInquiryToDb = (data) => {
         email: data.email,
         phone_no: data.phone,
         message: data.message,
-        inquiry_type: data.inquiryType,
-        inquiry_status: data.inquiryStatus,
+        inquiry_type: data.inquiry_type,
+        inquiry_status: data.inquiry_status,
         website_domain: currentUrl,
         app_id: appId,
     };
