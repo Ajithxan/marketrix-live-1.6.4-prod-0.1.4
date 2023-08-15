@@ -382,7 +382,6 @@ const getWindowSize = () => {
 };
 
 const sentInquiryToDb = (data) => {
-    let currentUrl = window.location.hostname;
 
     let inquiry = {
         name: data.name,
@@ -393,8 +392,15 @@ const sentInquiryToDb = (data) => {
         message: data.message,
         inquiry_type: data.inquiry_type,
         inquiry_status: data.inquiry_status,
-        website_domain: currentUrl,
-        app_id: appId,
+        website_domain: data.website_domain,
+        app_id: data.app_id,
+        visitor_info: data.visitorDevice,
+        visitor_socket_id: data.visitorSocketId,
+        country: data.country,
+        ipAddress: data.ipAddress,
+        geoLocation: data.geoLocation,
+        
+
     };
 
     console.log("sentInquiryToDb", inquiry);
