@@ -384,6 +384,7 @@ const getWindowSize = () => {
 const sentInquiryToDb = (data) => {
 
     let inquiry = {
+        app_id: appId,
         name: data.name,
         designation: data.designation,
         company: data.company,
@@ -392,14 +393,12 @@ const sentInquiryToDb = (data) => {
         message: data.message,
         inquiry_type: data.inquiry_type,
         inquiry_status: data.inquiry_status,
-        website_domain: data.website_domain,
-        app_id: data.app_id,
+        website_domain: data.website_domain, 
         visitor_info: data.visitorDevice,
         visitor_socket_id: data.visitorSocketId,
         country: data.country,
         ipAddress: data.ipAddress,
         geoLocation: data.geoLocation,
-        
 
     };
 
