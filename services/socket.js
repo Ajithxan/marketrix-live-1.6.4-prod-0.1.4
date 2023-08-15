@@ -132,8 +132,11 @@ const SOCKET = {
 
                 if (!response.status) {
                     alert(response.message + " ___ We will contact you soon through email");
+                    visitor.inquiryStatus   = "missed" 
                     sentInquiryToDb(visitor);
                 } else {
+                    visitor.inquiryStatus   = "incoming" 
+                    sentInquiryToDb(visitor);
                     mtxContactFormNotificationCard.classList.remove("mtx-hidden")
                     mtxFormContent.classList.add("mtx-hidden")
                     mtxFormCloseBtn.classList.add("mtx-hidden")

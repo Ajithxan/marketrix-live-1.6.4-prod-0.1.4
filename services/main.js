@@ -257,7 +257,7 @@ const showNotification = () => {
             if (index > 0) document.getElementById("mtx-contact-notification").innerText = notification
         }, 3000 * count)
     })
-
+    
 }
 
 const submit = async () => {
@@ -335,11 +335,12 @@ const sentInquiryToDb = (data) => {
         phone_no: data.phone,
         message: data.message,
         inquiry_type: data.inquiryType,
-        inquiry_status: "requested",
+        inquiry_status: data.inquiryStatus,
         website_domain: currentUrl,
         app_id: appId,
     };
 
+    console.log("sentInquiryToDb", inquiry);
     const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },
