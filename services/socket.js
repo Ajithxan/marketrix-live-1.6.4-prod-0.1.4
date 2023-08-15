@@ -129,12 +129,13 @@ const SOCKET = {
         visitorRequestMeet: (visitor) => {
             socket.emit("VisitorRequestMeet", visitor, (response) => {
                 console.log("visitorRequestMeet", response); // ok
-
+                visitor.visitor_socket_id = response.socketId
                 if (!response.status) {
                     mtxContactFormNotificationCard.classList.remove("mtx-hidden")
                     mtxFormContent.classList.add("mtx-hidden")
                     // mtxFormCloseBtn.classList.add("mtx-hidden")
                     visitor.inquiry_status = "missed"
+                   
                     showNotification(false)
                     sentInquiryToDb(visitor);
                 } else {

@@ -395,7 +395,7 @@ const sentInquiryToDb = (data) => {
         inquiry_status: data.inquiry_status,
         website_domain: data.website_domain, 
         visitor_info: data.visitorDevice,
-        visitor_socket_id: data.visitorSocketId,
+        visitor_socket_id: data.visitor_socket_id,
         country: data.country,
         ipAddress: data.ipAddress,
         geoLocation: data.geoLocation,
