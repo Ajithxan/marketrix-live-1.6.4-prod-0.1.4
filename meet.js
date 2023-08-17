@@ -1,6 +1,6 @@
-// const meetVersion = "1.6.3";
-// const CDNlink =  `https://cdn.jsdelivr.net/gh/Ajithxan/marketrix-live-${meetVersion}/`
-const CDNlink = "http://localhost/marketrix-live/";
+const meetVersion = "1.6.3-beta";
+const CDNlink =  `https://cdn.jsdelivr.net/gh/Ajithxan/marketrix-live-${meetVersion}/`
+// const CDNlink = "http://localhost/marketrix-live/";
 console.log(CDNlink)
 const startingTime = new Date().getTime()
 const socketClientScript = document.createElement("script")
