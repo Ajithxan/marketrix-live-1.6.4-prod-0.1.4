@@ -2,11 +2,11 @@ console.log("variables.js is established")
 // const socketUrl = "https://socket-v2.marketrix.io/"  
 // const serverBaseUrl = "https://api-v2.marketrix.io/"
 
-// const socketUrl = "http://dev.creative-hub.co:3451/"
-// const serverBaseUrl = "http://dev.creative-hub.co:3554/"
+const socketUrl = "http://dev.creative-hub.co:3451/"
+const serverBaseUrl = "http://dev.creative-hub.co:3554/"
 
-const socketUrl = "http://localhost:3001/"
-const serverBaseUrl = "http://localhost:8080/"
+// const socketUrl = "http://localhost:3001/"
+// const serverBaseUrl = "http://localhost:8080/"
 
 let socket
 let startInterval
