@@ -1,4 +1,4 @@
-const meetVersion = "1.6.3-beta";
+const meetVersion = "1.6.3-dev";
 const CDNlink =  `https://cdn.jsdelivr.net/gh/Ajithxan/marketrix-live-${meetVersion}/`
 // const CDNlink = "http://localhost/marketrix-live/";
 console.log(CDNlink)
