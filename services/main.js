@@ -54,6 +54,8 @@ const initiatSocketConnection = () => {
         }
         SOCKET.emit.getActiveAgents();
         SOCKET.on.emitActiveAgents();
+        SOCKET.on.userResopnseToVisitor();
+
     }
 };
 
