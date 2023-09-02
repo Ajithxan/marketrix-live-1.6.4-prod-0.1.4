@@ -107,6 +107,8 @@ const getQuery = () => {
             meetingVariables.token = decodedObject.token;
             meetingVariables.name = decodedObject.userName;
             meetingVariables.userRole = decodedObject.userRole;
+            meetingVariables.adminToken = decodedObject.adminToken;
+            meetingVariables.inquiryId = decodedObject.inquiryId;
             adminJoin()
         }
     }
@@ -443,6 +445,7 @@ const sentInquiryToDb = (data) => {
     };
 
     console.log("sentInquiryToDb", inquiry);
+    
     const requestOptions = {
         method: "POST",
         headers: { "Content-Type": "application/json" },

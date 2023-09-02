@@ -1,4 +1,4 @@
-const meetVersion = "1.6.4-prod-0.0.6"
+const meetVersion = "1.6.4-prod-0.0.7"
 const CDNlink = `https://cdn.jsdelivr.net/gh/Ajithxan/marketrix-live-${meetVersion}/` 
 //const CDNlink = 'http://localhost/marketrix-live/'
 console.log(CDNlink)

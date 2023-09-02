@@ -22,6 +22,8 @@ const meetingVariables = {
   domain: "",
   visitorSocketId: "",
   ended: true,
+  adminToken: "",
+  inquiryId: "",
 };
 let video; //video sdk
 // contact-form.html
