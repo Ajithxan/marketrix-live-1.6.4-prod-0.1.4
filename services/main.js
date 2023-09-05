@@ -86,7 +86,7 @@ const getQuery = () => {
 
     // Parse the decoded string as a JavaScript object
     decodedObject = JSON.parse(decodedString);
-    console.log("decodedObject", decodedObject);
+    console.log("decodedObject___", decodedObject);
 
     if (decodedObject?.userRole === "admin") {
       decodedObject.cursorId = cursorId;
@@ -97,7 +97,15 @@ const getQuery = () => {
       meetingVariables.userRole = decodedObject?.userRole;
       meetingVariables.adminToken = decodedObject?.adminToken;
       meetingVariables.inquiryId = decodedObject?.inquiryId;
-      meetingVariables.message = decodedObject?.message;
+
+      // meetingVariables.message = decodedObject?.message;
+      // meetingVariables.userName = decodedObject?.userName;
+      // adminMessage = decodedObject?.message;
+      // adminName= decodedObject?.userName;
+
+   
+
+
       hideRemoteCursor = true;
       adminJoin();
     }
