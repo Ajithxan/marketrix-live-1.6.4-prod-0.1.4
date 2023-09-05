@@ -22,6 +22,8 @@ const meetingVariables = {
     ended: true,
     adminToken: "",
     inquiryId: "",
+    message: "",
+
 };
 let video; //video sdk
 let marketrixModalContainer;
