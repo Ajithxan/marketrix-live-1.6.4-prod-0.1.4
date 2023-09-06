@@ -256,27 +256,49 @@ const closeModal = () => {
     // overlay.classList.add("mtx-hidden");
 };
 
+
+// const showModal = () => {
+//     marketrixButton?.classList.add("mtx-hidden");
+//     marketrixModalContainer?.classList.remove("mtx-hidden");
+//     // overlay.classList.remove("mtx-hidden");
+
+//     const elements = document.querySelectorAll(`#mtx-form .mtx-form-control`)
+
+//     elements.forEach(element => {
+//         const name = element.attributes.name.nodeValue
+//         const field = document.querySelector(`[name="${name}"]`)
+
+//         field.classList.remove("mtx-form-control-error")
+//     })
+
+//     if ((/false/).test(getFromStore("MEETING_ENDED")) || !getFromStore("MEETING_ENDED")) {
+//         mtxCursorHeader.classList.add("mtx-hidden")
+//         mtxContactFormNotificationCard.classList.add("mtx-hidden")
+//         mtxFormContent.classList.add("mtx-hidden")
+//         mtxFormCloseBtn.classList.add("mtx-hidden")
+//     }
+// };
+
 const showModal = () => {
     marketrixButton?.classList.add("mtx-hidden");
     marketrixModalContainer?.classList.remove("mtx-hidden");
     // overlay.classList.remove("mtx-hidden");
-
     const elements = document.querySelectorAll(`#mtx-form .mtx-form-control`)
-
     elements.forEach(element => {
         const name = element.attributes.name.nodeValue
         const field = document.querySelector(`[name="${name}"]`)
-
         field.classList.remove("mtx-form-control-error")
     })
-
-    if ((/false/).test(getFromStore("MEETING_ENDED")) || !getFromStore("MEETING_ENDED")) {
+    if (!(/null/).test(getFromStore("MEETING_ENDED")) && ((/false/).test(getFromStore("MEETING_ENDED")) || !getFromStore("MEETING_ENDED"))) {
+        console.log("coming here", getFromStore("MEETING_ENDED"))
         mtxCursorHeader.classList.add("mtx-hidden")
         mtxContactFormNotificationCard.classList.add("mtx-hidden")
         mtxFormContent.classList.add("mtx-hidden")
         mtxFormCloseBtn.classList.add("mtx-hidden")
     }
 };
+
+
 
 // let visitor connect
 const connectUserToLive = (meetInfo) => {
