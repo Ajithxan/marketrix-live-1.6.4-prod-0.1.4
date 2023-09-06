@@ -421,11 +421,14 @@
     background-size: cover;
 }
 .agent-msg{
-    font-size: 13px;
-    margin-bottom: 11px;
+    font-size: 30px;
+    font-weight: bold;
+    color: black;
+    margin-bottom: 15px;
 }
 .custom-msg{
-    margin-bottom: 11px;
+    margin-bottom: 20px;
+    font-size: 20px;
 }
 .mtx-admin-frame-pointer{
     position: absolute;
